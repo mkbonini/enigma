@@ -12,7 +12,11 @@ class Enigma
         shifts = get_shift(key, offset)
         i = 0
         message.downcase.each_char do |letter|
-            encrypted_message << get_letter(letter, shifts[i])
+            if @alphabet.include?(letter)
+                encrypted_message << get_letter(letter, shifts[i]) 
+            else
+                encrypted_message << letter
+            end
             i == 3 ? i = 0 : i += 1
         end
         return_hash = {encryption: encrypted_message, key: key, date: offset}
@@ -23,8 +27,12 @@ class Enigma
         shifts = get_shift(key, offset)
         i = 0
         message.downcase.each_char do |letter|
-            decrypted_message << get_decrypt_letter(letter, shifts[i])
-            i == 3 ? i = 0 : i += 1
+            if @alphabet.include?(letter) 
+                decrypted_message << get_decrypt_letter(letter, shifts[i])
+            else
+                decrypted_message << letter
+            end
+                i == 3 ? i = 0 : i += 1
         end
         return_hash = {decryption: decrypted_message, key: key, date: offset}
     end
@@ -52,19 +60,17 @@ class Enigma
     def get_letter(letter, shift)
         shift = shift % @alphabet.length if shift > @alphabet.length
 
-        if (@alphabet.index(letter) + shift) < 27
+        if (@alphabet.index(letter) + shift) <= 26
             new_index = @alphabet.index(letter) + shift
         else
             new_index = (27 - (@alphabet.index(letter) + shift)).abs
         end
-
         @alphabet[new_index]
     end
 
     def get_decrypt_letter(letter, shift)
         shift = shift % @alphabet.length if shift > @alphabet.length
-
-        if (@alphabet.index(letter) - shift) > 0
+        if (@alphabet.index(letter) - shift) >= 0
             new_index = @alphabet.index(letter) - shift
         else
             new_index = (27 - (shift - @alphabet.index(letter)))
