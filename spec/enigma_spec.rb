@@ -31,7 +31,7 @@ RSpec.describe Enigma do
         end
 
         it '6. sends back an encrypted message' do
-            expect(@enigma.encrypt("hello world", "02715", "040895")). to eq({:encyption=>  "keder ohulw", :key=>"02715", :date=>"040895"})
+            expect(@enigma.encrypt("hello world", "02715", "040895")). to eq({:encryption=>  "keder ohulw", :key=>"02715", :date=>"040895"})
         end
     end
     describe '## decrypt  ##' do
@@ -45,4 +45,13 @@ RSpec.describe Enigma do
             expect(@enigma.decrypt("keder ohulw", "02715").length). to eq 3
         end
 
+        it '6. sends back an decrypted message' do
+            expect(@enigma.decrypt("keder ohulw", "02715", "040895")). to eq({:decryption=>  "hello world", :key=>"02715", :date=>"040895"})
+        end
+
+        it '7. can use todays date to decrypt messages' do
+            encrypted = @enigma.encrypt("hello world", "02715")
+            expect(@enigma.decrypt(encrypted[:encryption], "02715")[:decryption]).to eq("hello world")
+        end
+    end
 end
