@@ -6,7 +6,7 @@ RSpec.describe Enigma do
     end
 
     it '1. exists' do
-        expect(@enigma).to be_a Engima
+        expect(@enigma).to be_a Enigma
     end
 
     describe '## encrypt  ##' do
