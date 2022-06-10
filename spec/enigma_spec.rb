@@ -29,6 +29,10 @@ RSpec.describe Enigma do
             expect(@enigma.encrypt("hello world", "02715", "040895")). to be_a Hash
             expect(@enigma.encrypt("hello world", "02715", "040895").length). to eq 3
         end
+
+        it '6. sends back an encrypted message' do
+            expect(@enigma.encrypt("hello world", "02715", "040895")). to eq({:encyption=>  "keder ohulw", :key=>"02715", :date=>"040895"})
+        end
     end
 
 end
