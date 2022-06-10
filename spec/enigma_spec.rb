@@ -34,5 +34,15 @@ RSpec.describe Enigma do
             expect(@enigma.encrypt("hello world", "02715", "040895")). to eq({:encyption=>  "keder ohulw", :key=>"02715", :date=>"040895"})
         end
     end
+    describe '## decrypt  ##' do
+        it '7. it takes all 3 arguements and returns a hash' do
+            expect(@enigma.decrypt("keder ohulw", "02715", "040895")). to be_a Hash
+            expect(@enigma.decrypt("keder ohulw", "02715", "040895").length). to eq 3
+        end
+
+        it '8. takes message and key arguments and returns a hash' do
+            expect(@enigma.decrypt("keder ohulw", "02715")). to be_a Hash
+            expect(@enigma.decrypt("keder ohulw", "02715").length). to eq 3
+        end
 
 end
