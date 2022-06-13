@@ -57,4 +57,38 @@ RSpec.describe Enigma do
             expect(@enigma.decrypt(encrypted[:encryption], encrypted[:key])[:decryption]).to eq("!alan turing was the first to crack enigma!")
         end
     end
+
+    describe '  Crack ##' do
+        it '11. takes an encrypted message and date and reutrns a hash' do
+            encrypted = @enigma.encrypt("hello world end","08304", "291018")
+            expect(@enigma.crack(encrypted[:encryption], encrypted[:date])).to be_a Hash
+            expect(@enigma.crack(encrypted[:encryption], encrypted[:date]).length).to eq 3
+            # require 'pry'; binding.pry
+        end
+
+        it '12. takes an encrypted message and reutrns a hash using todays date' do
+            encrypted = @enigma.encrypt("hello world end")
+            expect(@enigma.crack(encrypted[:encryption])).to be_a Hash
+            expect(@enigma.crack(encrypted[:encryption]).length).to eq 3
+        end
+
+        it '13. can crack messages' do
+            encrypted = @enigma.encrypt("hello world end")
+            puts encrypted[:key]
+            expect(@enigma.crack(encrypted[:encryption])[:decryption]).to eq "hello world end"
+        end
+
+        it '14. can crack longer messages with punctuation' do
+            encrypted = @enigma.encrypt("!Alan Turing was the first to crack enigma! end")
+            puts encrypted[:key]
+            expect(@enigma.crack(encrypted[:encryption])[:decryption]).to eq "!alan turing was the first to crack enigma! end"
+        end
+
+        it '15. Can recognize false positives in the key cracking code' do
+            encrypted = @enigma.encrypt("hello world end", "30993")
+            expect(@enigma.crack(encrypted[:encryption])[:decryption]).to eq "hello world end"
+            expect(@enigma.crack(encrypted[:encryption])[:key]).to eq "30993"
+
+        end
+    end
 end
