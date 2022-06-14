@@ -21,8 +21,8 @@ RSpec.describe Enigma do
         end
 
         it '4. takes only a message and returns a hash' do
-            expect(@enigma.encrypt("hello world", "02715", "040895")). to be_a Hash
-            expect(@enigma.encrypt("hello world", "02715", "040895").length). to eq 3
+            expect(@enigma.encrypt("hello world")). to be_a Hash
+            expect(@enigma.encrypt("hello world").length). to eq 3
         end
 
         it '5. sends back an encrypted message' do
