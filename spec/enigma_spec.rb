@@ -63,7 +63,6 @@ RSpec.describe Enigma do
             encrypted = @enigma.encrypt("hello world end","08304", "291018")
             expect(@enigma.crack(encrypted[:encryption], encrypted[:date])).to be_a Hash
             expect(@enigma.crack(encrypted[:encryption], encrypted[:date]).length).to eq 3
-            # require 'pry'; binding.pry
         end
 
         it '12. takes an encrypted message and reutrns a hash using todays date' do
@@ -74,13 +73,11 @@ RSpec.describe Enigma do
 
         it '13. can crack messages' do
             encrypted = @enigma.encrypt("hello world end")
-            puts encrypted[:key]
             expect(@enigma.crack(encrypted[:encryption])[:decryption]).to eq "hello world end"
         end
 
         it '14. can crack longer messages with punctuation' do
             encrypted = @enigma.encrypt("!Alan Turing was the first to crack enigma! end")
-            puts encrypted[:key]
             expect(@enigma.crack(encrypted[:encryption])[:decryption]).to eq "!alan turing was the first to crack enigma! end"
         end
 
@@ -88,7 +85,6 @@ RSpec.describe Enigma do
             encrypted = @enigma.encrypt("hello world end", "30993")
             expect(@enigma.crack(encrypted[:encryption])[:decryption]).to eq "hello world end"
             expect(@enigma.crack(encrypted[:encryption])[:key]).to eq "30993"
-
         end
     end
 end

@@ -1,0 +1,2 @@
+this is a sample message to see if my enigma code works.  
+this message will be encrypted and decrypted. end
